@@ -1,0 +1,55 @@
+<style>
+  .navigation,
+  #timeStore
+  {
+    display:none;
+  }
+</style>
+
+<iframe src="https://player.vimeo.com/video/VIDEO ID" width="640" height="480" frameborder="0" allow="autoplay; fullscreen"></iframe>
+
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<script>
+
+  //It's important that the script appears after the iframe
+
+  $(document).find('*').off('keyup keydown keypressed');
+
+  var iframe = document.querySelector('iframe');
+  var player = new Vimeo.Player(iframe);
+  var playing = false
+  var playTimer
+  var count = 0
+
+  player.on('play', function() {
+    if(!playing){
+      playTimer = setInterval(continueCounting,1000)
+      playing=true
+    }
+  });
+
+  player.on('pause', function() {
+    clearInterval(playTimer)
+    playing=false
+  });
+
+  player.on('ended', function() {
+    if(count>39){
+      $("input[name = 'Next']").click();
+    }
+  });
+
+  function continueCounting(){
+    count++
+    $('#timeStore').val(count)
+    if(count>39){
+      $('.navigation').show();
+    }
+  }
+
+</script>
+
+<input type="numeric" id="timeStore" />

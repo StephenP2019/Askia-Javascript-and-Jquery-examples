@@ -1,0 +1,23 @@
+<i><p id="countdownText">The next button will appear in <a id="countdown">20</a> seconds<i></p>
+<style>
+  .navigation {
+    display:none;
+  }
+</style>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+  $(document).find('*').off('keyup keydown keypressed');
+
+  var timeleft = 19;
+  var downloadTimer = setInterval(function(){
+    $('#countdown').html(timeleft);
+    timeleft -= 1;
+    if(timeleft < 0){
+      clearInterval(downloadTimer);
+      $('#countdown').html("0");
+      $('#countdownText').hide();
+      $('.navigation').show();
+    }
+  }, 1000);
+
+  </script>
